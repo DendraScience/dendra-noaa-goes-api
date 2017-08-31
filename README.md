@@ -20,8 +20,8 @@ Provides a Feathers service (REST API) wrapper around the NOAA GOES Data Collect
 
 1. Make this project directory the current directory, i.e. `cd dendra-noaa-goes-api`.
 
-2. Build the project `docker build -t dendra:dendra-noaa-goes-api .`.
+2. Build the project `docker build -t dendro:dendra-noaa-goes-api .`.
 
-3. Tag the desired image, e.g. `docker tag f0ec409b5194 dendra/dendra-noaa-goes-api:latest`.
+3. Tag the desired image, e.g. `docker tag f0ec409b5194 dendro/dendra-noaa-goes-api:latest`.
 
-4. Push it via `docker push dendra/dendra-noaa-goes-api`.
+4. Push it via `docker push dendro/dendra-noaa-goes-api`.
