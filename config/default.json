@@ -1,0 +1,38 @@
+{
+  "auth": {
+    "idField": "id",
+    "local": {},
+    "token": {
+      "secret": "ThYncCxLbjhin7YZBtZgda7nm0KSeT4rM0UsvpCnJXPA6sTVq6NKvsDoHjzyjkMKnB4gKDqsUx8Gg7mYsRbV9Q=="
+    }
+  },
+  "databases": {},
+  "host": "localhost",
+  "port": 3032,
+  "public": "../dist/public/",
+  "services": {
+    "dds": {
+      "numSlots": 2,
+      "password": "NOAA_GOES_DDS_PASS",
+      "username": "NOAA_GOES_DDS_USER"
+    },
+    "message": {
+      "paginate": {
+        "default": 20,
+        "max": 2000
+      }
+    },
+    "series": {
+      "paginate": {
+        "default": 20,
+        "max": 2000
+      }
+    }
+  },
+  "tasks": {
+    "dds_grooming": {
+      "lifetimeSeconds": 285,
+      "timerSeconds": [20, 30]
+    }
+  }
+}

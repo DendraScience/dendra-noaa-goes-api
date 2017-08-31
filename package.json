@@ -1,0 +1,76 @@
+{
+  "name": "dendra-noaa-goes-api",
+  "version": "0.0.1",
+  "description": "Dendra internal API to the NOAA GOES Data Collection System.",
+  "license": "BSD-2-Clause-FreeBSD",
+  "author": "J. Scott Smith <scott@newleafsolutionsinc.com>",
+  "main": "dist/server/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DendraScience/dendra-noaa-goes-api.git"
+  },
+  "scripts": {
+    "babel-server": "babel src/server -d dist/server",
+    "build": "npm run build-server",
+    "build-server": "npm run lint-server && npm run clean-server && npm run babel-server && npm run copy-views",
+    "clean": "npm run clean-server",
+    "clean-server": "rm -rf dist/server/*",
+    "copy-views": "cp -R src/server/views dist/server",
+    "empty-cache": "rm -f .cache/*.db",
+    "lint": "eslint src",
+    "lint-server": "eslint src/server",
+    "lint-test": "eslint test",
+    "lint-test-server": "eslint test/server",
+    "start": "node ./dist/server/main.js",
+    "start:dev": "NODE_ENV=development npm start",
+    "start:prod": "NODE_ENV=production npm start",
+    "test": "npm run test-server",
+    "test-server": "npm run lint-test-server && NODE_ENV=test mocha test/server --recursive --use_strict",
+    "test-server:build": "npm run build-server && npm run test-server",
+    "test-server:watch": "chokidar --initial 'src/server/**/*.js' 'test/server/**/*.js' -c 'npm run test-server:build'"
+  },
+  "engines": {
+    "node": ">=6.11.0"
+  },
+  "dependencies": {
+    "@dendra-science/api-hooks-common": "0.0.1",
+    "@dendra-science/goes-dds-client": "0.0.1",
+    "@dendra-science/goes-pseudo-binary": "0.0.2",
+    "@dendra-science/task-queue": "0.0.1",
+    "@dendra-science/utils": "0.0.1",
+    "babel-runtime": "^6.26.0",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "feathers": "^2.1.7",
+    "feathers-configuration": "^0.4.1",
+    "feathers-errors": "^2.9.1",
+    "feathers-hooks": "^2.0.2",
+    "feathers-hooks-common": "^3.7.1",
+    "feathers-nedb": "^2.6.2",
+    "feathers-rest": "^1.8.0",
+    "feathers-socketio": "^2.0.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "nedb": "^1.8.0",
+    "pug": "^2.0.0-rc.3",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015-node6": "^0.4.0",
+    "chai": "^4.1.1",
+    "eslint": "^4.4.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.5.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.0.0"
+  }
+}

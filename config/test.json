@@ -1,0 +1,24 @@
+{
+  "services": {
+    "dds": {
+      "numSlots": 2,
+      "password": "DDS_PASS",
+      "username": "DDS_USER"
+    },
+    "messages": {
+      "paginate": {
+        "default": 20,
+        "max": 2000
+      }
+    },
+    "series": {
+      "paginate": {
+        "default": 20,
+        "max": 2000
+      }
+    }
+  },
+  "tasks": {
+    "dds_grooming": null
+  }
+}
