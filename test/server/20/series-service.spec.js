@@ -5,8 +5,8 @@
 const ddsPool = require('../../../dist/server/lib/dds-pool')
 const moment = require('moment')
 const now = moment().utc()
-const since = now.clone().subtract(15, 'd').startOf('d')
-const until = since.clone().add(1, 'd')
+const since = now.clone().subtract(5, 'd').startOf('d')
+const until = since.clone().add(2, 'd')
 
 const DATE_FORMAT = 'YYYY/DDD HH:mm:ss'
 const DCP_ADDRESS = 'BEC0035C'

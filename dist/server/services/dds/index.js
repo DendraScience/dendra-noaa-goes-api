@@ -67,6 +67,7 @@ module.exports = function () {
       }));
 
       app.use('/dds/dcp-block-ext', new Service({
+        // TODO: Implement this!!!
         messageTypes: [types.IdCriteria, types.IdDcpBlockExt],
         pool: pool
       }));

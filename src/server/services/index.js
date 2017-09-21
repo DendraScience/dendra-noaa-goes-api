@@ -4,9 +4,9 @@ module.exports = (function () {
   return function () {
     const app = this
     const serviceNames = [
-      // 'cache_docs',
+      // 'cache_doc',
       'dds',
-      'messages',
+      'message',
       'series'
     ]
 

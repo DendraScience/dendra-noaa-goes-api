@@ -1,7 +1,7 @@
 const feathersQueryFilters = require('feathers-query-filters')
 const hooks = require('./hooks')
-const Editor = require('../../lib/moment-editor').default
 const moment = require('moment')
+const {MomentEditor} = require('@dendra-science/utils-moment')
 
 function dateSortPredicateAsc (a, b) {
   return a.time.date.getTime() - b.time.date.getTime()
@@ -47,7 +47,7 @@ class Service {
     delete msgQuery.$sort
 
     let editor
-    if (typeof query.time_edit === 'string') editor = new Editor(query.time_edit)
+    if (typeof query.time_edit === 'string') editor = new MomentEditor(query.time_edit)
 
     const res = {
       limit: filters.$limit,
