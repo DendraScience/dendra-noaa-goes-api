@@ -23,15 +23,22 @@ class DDSPool {
 
     this.slots = Array.apply(null, {
       length: this.options.numSlots
-    }).map((slot, id) => {
-      return {
+    }).map((el, id) => {
+      const slot = {
         id,
         client: new dds.DDSClient(),
         queue: new tq.TaskQueue({
           maxRetries: 0
         })
       };
+      slot.client.on('error', this._onErrorHandler.bind(this, slot));
+
+      return slot;
     });
+  }
+
+  _onErrorHandler(slot, err) {
+    this.logger.error(`DDSPool [Slot ${slot.id}]`, err);
   }
 
   get prioritySlots() {
@@ -68,7 +75,12 @@ class DDSPool {
       });
     }
 
-    return step;
+    return step.then(() => {
+      pool.logger.info(`DDSPool [Slot ${slot.id}]: Cleaning up`);
+
+      delete slot.authData;
+      delete slot.time;
+    });
   }
 
   disconnectAll(slots = this.slots) {
@@ -93,11 +105,17 @@ class DDSPool {
     let step = Promise.resolve();
 
     if (!client.isConnected) {
-      pool.logger.info(`DDSPool [Slot ${slot.id}]: Connecting`);
-
       step = step.then(() => {
+        pool.logger.info(`DDSPool [Slot ${slot.id}]: Connecting`);
+
         return client.connect();
-      }).then(() => {
+      });
+    }
+
+    if (!(client.isConnected && slot.authData)) {
+      step = step.then(() => {
+        pool.logger.info(`DDSPool [Slot ${slot.id}]: Authenticating`);
+
         return client.request(dds.types.IdAuthHello, {
           algorithm: 'sha256',
           password: pool.options.password,
@@ -109,14 +127,16 @@ class DDSPool {
         const d = data[0];
         if (d && d.serverCode) throw new errors.NotAuthenticated(d.explanation, d);
 
-        pool.logger.info(`DDSPool [Slot ${slot.id}]: Connected and authorized`);
-
         slot.authData = data;
-        slot.time = Date.now();
+
+        pool.logger.info(`DDSPool [Slot ${slot.id}]: Authenticated`, data);
       });
     }
 
-    return step.then(() => data.cb(slot));
+    return step.then(() => {
+      slot.time = Date.now();
+      return data.cb(slot);
+    });
   }
 
   execute(cb) {
