@@ -8,7 +8,7 @@ const now = moment().utc()
 const since = now.clone().subtract(5, 'd').startOf('d')
 const until = since.clone().add(2, 'd')
 
-const DATE_FORMAT = 'YYYY/DDD HH:mm:ss'
+const DATE_FORMAT = 'YYYY/DDDD HH:mm:ss'
 const DCP_ADDRESS = 'BEC0035C'
 
 describe('Service /dds', function () {

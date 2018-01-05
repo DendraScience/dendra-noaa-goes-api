@@ -7,7 +7,7 @@ const { sharedPool } = require('../../lib/dds-pool');
 const { treeMap } = require('@dendra-science/utils');
 const { types } = require('@dendra-science/goes-dds-client');
 
-const DATE_FORMAT = 'YYYY/DDD HH:mm:ss';
+const DATE_FORMAT = 'YYYY/DDDD HH:mm:ss';
 
 function checkResponseData(data) {
   const d = data[0];
